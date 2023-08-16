@@ -1,4 +1,4 @@
-//! `syntect-assets` is a library to print syntax highlighted content.
+//! `syntect-assets` contains [syntect](https://github.com/trishume/syntect) syntax and theme assets from [bat](https://github.com/sharkdp/bat).
 //!
 //! The main struct of this crate is `HighlightingAssets` which can be used in `syntect`.
 //!

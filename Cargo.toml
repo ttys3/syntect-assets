@@ -1,6 +1,6 @@
 [package]
 authors = ["David Peter <mail@david-peter.de>"]
-categories = ["command-line-utilities"]
+categories = ["syntax-hightlighting", "syntax", "hightlighting", "syntect", "themes", "syntax-highlighter"]
 description = "[syntect](https://github.com/trishume/syntect) syntax and theme assets from [bat](https://github.com/sharkdp/bat)."
 homepage = "https://github.com/ttys3/syntect-assets"
 license = "MIT OR Apache-2.0"
