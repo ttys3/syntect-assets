@@ -6,7 +6,7 @@ use syntect_assets::assets::HighlightingAssets;
 fn main() {
     // Load these once at the start of your program
     let assets = HighlightingAssets::from_binary();
-    let ss = assets.get_syntax_set().unwrap();;
+    let ss = assets.get_syntax_set().unwrap();
     let syntax = ss.find_syntax_by_extension("rs").unwrap();
     let theme = assets.get_theme("OneHalfDark");
 

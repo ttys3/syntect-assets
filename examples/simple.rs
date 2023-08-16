@@ -1,6 +1,6 @@
 /// A simple program that prints its own source code using the syntect-assets library
-use syntect::parsing::SyntaxSet;
-use syntect::highlighting::{ThemeSet, Style};
+
+use syntect::highlighting::Style;
 use syntect::util::as_24_bit_terminal_escaped;
 use syntect::easy::HighlightFile;
 use std::io::BufRead;

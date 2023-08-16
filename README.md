@@ -37,6 +37,45 @@ fn main() {
 }
 ```
 
+## supported themes
+
+```yaml
+Themes:
+- 1337
+- Coldark-Cold
+- Coldark-Dark
+- DarkNeon
+- Dracula
+- GitHub
+- Monokai Extended
+- Monokai Extended Bright
+- Monokai Extended Light
+- Monokai Extended Origin
+- Nord
+- OneHalfDark
+- OneHalfLight
+- Solarized (dark)
+- Solarized (light)
+- Sublime Snazzy
+- TwoDark
+- Visual Studio Dark+
+- ansi
+- base16
+- base16-256
+- gruvbox-dark
+- gruvbox-light
+- zenburn
+```
+
+## supported syntaxes
+
+see [examples/list_syntaxes_and_themes.rs](examples/list_syntaxes_and_themes.rs) example
+
+you can run the example to get the list of supported syntaxes and themes
+
+```bash
+cargo run --example list_syntaxes_and_themes
+```
 
 ## troubleshooting
 
