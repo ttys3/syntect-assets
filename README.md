@@ -45,17 +45,21 @@ the latest syntax fixed many bugs, but we can not update to that.
 for example, fenced golang now support both `go` and `golang`, prev just support `golang`, but most people use `go` for that.
 
 the latest version fixed the issue:
-
 https://github.com/sublimehq/Packages/blob/master/Markdown/Markdown.sublime-syntax
 
 
-but syntect does not support sublime-syntax from Sublime Text Build 4075
+some issues:
 
+* syntect does not support sublime-syntax from Sublime Text Build 4075
 see https://github.com/trishume/syntect/issues/323
 
-sublimehq packages: Missing mandatory key in YAML file: match
+* sublimehq packages: Missing mandatory key in YAML file: match
 https://github.com/trishume/syntect/issues/461
 
+* zola: Investigate tree-sitter to replace syntect
+  > Our syntect syntaxes are stuck on old versions of the grammars because of new features in the Sublime grammar format not supported by Syntect.
+
+  https://github.com/getzola/zola/issues/1787
 
 ## related
 
