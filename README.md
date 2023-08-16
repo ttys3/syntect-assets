@@ -1,6 +1,6 @@
 # syntect-assets
 
-syntect syntax and theme assets from [bat](https://github.com/sharkdp/bat)
+[syntect](https://github.com/trishume/syntect) syntax and theme assets from [bat](https://github.com/sharkdp/bat)
 
 ## why?
 
