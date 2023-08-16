@@ -107,3 +107,13 @@ https://github.com/microsoft/vscode/blob/7a464d6069a39b7d0e63c3da453d43a53eea749
 https://github.com/microsoft/vscode-textmate
 
 https://github.com/microsoft/vscode-markdown-tm-grammar
+
+Sublime Text
+
+Syntax Definitions https://www.sublimetext.com/docs/syntax.html
+
+Scope Naming https://www.sublimetext.com/docs/scope_naming.html
+
+Themes https://www.sublimetext.com/docs/themes.html
+
+Color Schemes https://www.sublimetext.com/docs/color_schemes.html
