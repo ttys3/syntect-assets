@@ -1,22 +1,29 @@
 //! `syntect-assets` is a library to print syntax highlighted content.
 //!
-//! The main struct of this crate is `PrettyPrinter` which can be used to
-//! configure and run the syntax highlighting.
-//!
-//! If you need more control, you can also use the structs in the submodules
-//! (start with `controller::Controller`), but note that the API of these
-//! internal modules is much more likely to change. Some or all of these
-//! modules might be removed in the future.
+//! The main struct of this crate is `HighlightingAssets` which can be used in `syntect`.
 //!
 //! "Hello world" example:
-//! ```
-//! use syntect_assets::PrettyPrinter;
+//! ```rust
+//! use syntect::easy::HighlightLines;
+//! use syntect::highlighting::Style;
+//! use syntect::util::{as_24_bit_terminal_escaped, LinesWithEndings};
+//! use syntect_assets::assets::HighlightingAssets;
 //!
-//! PrettyPrinter::new()
-//!     .input_from_bytes(b"<span style=\"color: #ff00cc\">Hello world!</span>\n")
-//!     .language("html")
-//!     .print()
-//!     .unwrap();
+//! fn main() {
+//!     // Load these once at the start of your program
+//!     let assets = HighlightingAssets::from_binary();
+//!     let ss = assets.get_syntax_set().unwrap();;
+//!     let syntax = ss.find_syntax_by_extension("rs").unwrap();
+//!     let theme = assets.get_theme("OneHalfDark");
+//!
+//!     let mut h = HighlightLines::new(syntax, theme);
+//!     let s = "pub struct Wow { hi: u64 }\nfn blah() -> u64 {}\n";
+//!     for line in LinesWithEndings::from(s) { // LinesWithEndings enables use of newlines mode
+//!         let ranges: Vec<(Style, &str)> = h.highlight_line(line, ss).unwrap();
+//!         let escaped = as_24_bit_terminal_escaped(&ranges[..], true);
+//!         print!("{}", escaped);
+//!     }
+//! }
 //! ```
 
 #![deny(unsafe_code)]
