@@ -1,0 +1,63 @@
+diff --git syntaxes/01_Packages/Markdown/Markdown.sublime-syntax syntaxes/01_Packages/Markdown/Markdown.sublime-syntax
+index 9306d2f..46fb489 100644
+--- syntaxes/01_Packages/Markdown/Markdown.sublime-syntax
++++ syntaxes/01_Packages/Markdown/Markdown.sublime-syntax
+@@ -1210,7 +1210,7 @@ contexts:
+       embed_scope:
+         markup.raw.code-fence.css.markdown-gfm
+         source.css
+-      escape: '{{fenced_code_block_escape}}'
++      escape: '{{code_fence_escape}}'
+       escape_captures:
+         0: meta.code-fence.definition.end.css.markdown-gfm
+         1: punctuation.definition.raw.code-fence.end.markdown
+@@ -1227,7 +1227,7 @@ contexts:
+       embed_scope:
+         markup.raw.code-fence.html.markdown-gfm
+         text.html.basic
+-      escape: '{{fenced_code_block_escape}}'
++      escape: '{{code_fence_escape}}'
+       escape_captures:
+         0: meta.code-fence.definition.end.html.markdown-gfm
+         1: punctuation.definition.raw.code-fence.end.markdown
+@@ -1244,7 +1244,7 @@ contexts:
+       embed_scope:
+         markup.raw.code-fence.lua.markdown-gfm
+         source.lua
+-      escape: '{{fenced_code_block_escape}}'
++      escape: '{{code_fence_escape}}'
+       escape_captures:
+         0: meta.code-fence.definition.end.lua.markdown-gfm
+         1: punctuation.definition.raw.code-fence.end.markdown
+@@ -1261,10 +1261,27 @@ contexts:
+       embed_scope:
+         markup.raw.code-fence.jsx.markdown-gfm
+         source.jsx
+-      escape: '{{fenced_code_block_escape}}'
++      escape: '{{code_fence_escape}}'
+       escape_captures:
+         0: meta.code-fence.definition.end.jsx.markdown-gfm
+         1: punctuation.definition.raw.code-fence.end.markdown
++    - match: |-
++         (?x)
++          {{fenced_code_block_start}}
++          ((?i:tsx))
++          {{fenced_code_block_trailing_infostring_characters}}
++      captures:
++        0: meta.code-fence.definition.begin.tsx.markdown-gfm
++        2: punctuation.definition.raw.code-fence.begin.markdown
++        5: constant.other.language-name.markdown
++      embed: scope:source.tsx
++      embed_scope:
++        markup.raw.code-fence.tsx.markdown-gfm
++        source.tsx
++      escape: '{{code_fence_escape}}'
++      escape_captures:
++        0: meta.code-fence.definition.end.tsx.markdown-gfm
++        1: punctuation.definition.raw.code-fence.end.markdown
+     - match: |-
+          (?x)
+           {{fenced_code_block_start}}
+-- 
+2.41.0
+
