@@ -1,4 +1,3 @@
-use std::io::Write;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -41,25 +40,3 @@ impl From<String> for Error {
 }
 
 pub type Result<T> = std::result::Result<T, Error>;
-
-pub fn default_error_handler(error: &Error, output: &mut dyn Write) {
-    use nu_ansi_term::Color::Red;
-
-    match error {
-        Error::Io(ref io_error) if io_error.kind() == ::std::io::ErrorKind::BrokenPipe => {
-            ::std::process::exit(0);
-        }
-        Error::SerdeYamlError(_) => {
-            writeln!(
-                output,
-                "{}: Error while parsing metadata.yaml file: {}",
-                Red.paint("[bat error]"),
-                error
-            )
-                .ok();
-        }
-        _ => {
-            writeln!(output, "{}: {}", Red.paint("[bat error]"), error).ok();
-        }
-    };
-}

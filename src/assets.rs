@@ -7,8 +7,6 @@ use once_cell::unsync::OnceCell;
 use syntect::highlighting::Theme;
 use syntect::parsing::{SyntaxReference, SyntaxSet};
 
-use path_abs::PathAbs;
-
 use crate::syntax_mapping::ignored_suffixes::IgnoredSuffixes;
 use crate::syntax_mapping::{MappingTarget, SyntaxMapping};
 
@@ -18,12 +16,7 @@ use serialized_syntax_set::*;
 
 use crate::error::*;
 
-#[cfg(feature = "build-assets")]
-pub use crate::assets::build_assets::*;
-
 pub(crate) mod assets_metadata;
-#[cfg(feature = "build-assets")]
-mod build_assets;
 mod lazy_theme_set;
 mod serialized_syntax_set;
 
