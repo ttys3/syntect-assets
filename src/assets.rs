@@ -143,14 +143,6 @@ impl HighlightingAssets {
             .get_or_try_init(|| self.serialized_syntax_set.deserialize())
     }
 
-    /// Use [Self::get_syntaxes] instead
-    #[deprecated]
-    pub fn syntaxes(&self) -> &[SyntaxReference] {
-        self.get_syntax_set()
-            .expect(".syntaxes() is deprecated, use .get_syntaxes() instead")
-            .syntaxes()
-    }
-
     pub fn get_syntaxes(&self) -> Result<&[SyntaxReference]> {
         Ok(self.get_syntax_set()?.syntaxes())
     }
@@ -161,18 +153,6 @@ impl HighlightingAssets {
 
     pub fn themes(&self) -> impl Iterator<Item = &str> {
         self.get_theme_set().themes()
-    }
-
-    /// Use [Self::get_syntax_for_path] instead
-    #[deprecated]
-    pub fn syntax_for_file_name(
-        &self,
-        file_name: impl AsRef<Path>,
-        mapping: &SyntaxMapping,
-    ) -> Option<&SyntaxReference> {
-        self.get_syntax_for_path(file_name, mapping)
-            .ok()
-            .map(|syntax_in_set| syntax_in_set.syntax)
     }
 
     /// Detect the syntax based on, in order:

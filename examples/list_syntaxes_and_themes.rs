@@ -1,18 +1,18 @@
 /// A simple program that lists all supported syntaxes and themes.
-use bat::PrettyPrinter;
+use syntect_assets::assets::HighlightingAssets;
 
 fn main() {
-    let printer = PrettyPrinter::new();
+    let assets = HighlightingAssets::from_binary();
 
     println!("Syntaxes:");
-    for syntax in printer.syntaxes() {
+    for syntax in assets.get_syntaxes().unwrap() {
         println!("- {} ({})", syntax.name, syntax.file_extensions.join(", "));
     }
 
     println!();
 
     println!("Themes:");
-    for theme in printer.themes() {
+    for theme in assets.themes() {
         println!("- {}", theme);
     }
 }

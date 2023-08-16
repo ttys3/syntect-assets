@@ -5,3 +5,7 @@
 ## why?
 
 `bat`'s syntect syntax is updated and improved compared to syntect builtin ones
+
+## docs
+
+https://docs.rs/syntect/
