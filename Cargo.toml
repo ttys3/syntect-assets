@@ -18,19 +18,19 @@ regex-onig = ["syntect/regex-onig"] # Use the "oniguruma" regex engine
 regex-fancy = ["syntect/regex-fancy"] # Use the rust-only "fancy-regex" engine
 
 [dependencies]
-once_cell = "1.17"
+once_cell = "1.18"
 thiserror = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-serde_yaml = "0.8"
+serde_yaml = "0.9"
 semver = "1.0"
 
-bincode = "1.0"
+bincode = "1.3"
 flate2 = "1.0"
 globset = "0.4"
 log = "0.4.20"
 
 [dependencies.syntect]
-version = "5.0.0"
+version = "5.1.0"
 default-features = false
 features = ["parsing"]
 
