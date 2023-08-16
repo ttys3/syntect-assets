@@ -1,8 +1,7 @@
 use std::path::Path;
 
-use crate::error::Result;
 use ignored_suffixes::IgnoredSuffixes;
-
+use crate::error::*;
 use globset::{Candidate, GlobBuilder, GlobMatcher};
 
 pub mod ignored_suffixes;
@@ -53,7 +52,7 @@ impl<'a> SyntaxMapping<'a> {
             .unwrap();
         mapping
             .insert(
-                "**/bat/config",
+                "**/syntect-assets/config",
                 MappingTarget::MapTo("Bourne Again Shell (bash)"),
             )
             .unwrap();

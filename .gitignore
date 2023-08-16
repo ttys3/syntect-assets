@@ -1,9 +1,3 @@
 /target/
 **/*.rs.bk
 
-# Generated files
-/assets/completions/bat.bash
-/assets/completions/bat.fish
-/assets/completions/bat.zsh
-/assets/manual/bat.1
-/assets/metadata.yaml

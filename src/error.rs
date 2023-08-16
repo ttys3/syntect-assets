@@ -56,7 +56,7 @@ pub fn default_error_handler(error: &Error, output: &mut dyn Write) {
                 Red.paint("[bat error]"),
                 error
             )
-            .ok();
+                .ok();
         }
         _ => {
             writeln!(output, "{}: {}", Red.paint("[bat error]"), error).ok();

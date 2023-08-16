@@ -1,4 +1,4 @@
-use bat::assets::HighlightingAssets;
+use syntect_assets::assets::HighlightingAssets;
 
 /// This test ensures that we are not accidentally removing themes due to submodule updates.
 /// It is 'ignore'd by default because it requires themes.bin to be up-to-date.

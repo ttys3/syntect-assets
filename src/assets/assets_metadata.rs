@@ -4,7 +4,6 @@ use std::time::SystemTime;
 
 use semver::Version;
 use serde::{Deserialize, Serialize};
-
 use crate::error::*;
 
 #[derive(Debug, PartialEq, Eq, Default, Serialize, Deserialize)]
@@ -45,7 +44,7 @@ impl AssetsMetadata {
     ///   - We find a metadata.yaml file and but are not able to parse it
     ///       => return a SerdeYamlError
     ///   - We do not find a metadata.yaml file but a syntaxes.bin or themes.bin file
-    ///       => assume that these were created by an old version of bat and return
+    ///       => assume that these were created by an old version of syntect-assets and return
     ///          AssetsMetadata::default() without version information
     ///   - We do not find a metadata.yaml file and no cached assets
     ///       => no user provided assets are available, return None
@@ -53,7 +52,7 @@ impl AssetsMetadata {
         match Self::try_load_from_folder(path) {
             Ok(metadata) => Ok(Some(metadata)),
             Err(e) => {
-                if let Error::SerdeYamlError(_) = e {
+                if let crate::error::Error::SerdeYamlError(_) = e {
                     Err(e)
                 } else if path.join("syntaxes.bin").exists() || path.join("themes.bin").exists() {
                     Ok(Some(Self::default()))
@@ -66,7 +65,7 @@ impl AssetsMetadata {
 
     pub fn is_compatible_with(&self, current_version: &str) -> bool {
         let current_version =
-            Version::parse(current_version).expect("bat follows semantic versioning");
+            Version::parse(current_version).expect("syntect-assets follows semantic versioning");
         let stored_version = self
             .bat_version
             .as_ref()

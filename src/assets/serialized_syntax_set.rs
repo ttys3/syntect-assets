@@ -11,7 +11,7 @@ pub enum SerializedSyntaxSet {
     /// The data comes from a user-generated cache file.
     FromFile(PathBuf),
 
-    /// The data to use is embedded into the bat binary.
+    /// The data to use is embedded into the syntect-assets binary.
     FromBinary(&'static [u8]),
 }
 

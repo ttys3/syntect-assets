@@ -1,3 +1,0 @@
-```javascript
-var test = "boom";
-```

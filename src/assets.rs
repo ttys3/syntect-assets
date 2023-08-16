@@ -9,15 +9,14 @@ use syntect::parsing::{SyntaxReference, SyntaxSet};
 
 use path_abs::PathAbs;
 
-use crate::error::*;
-use crate::input::{InputReader, OpenedInput};
 use crate::syntax_mapping::ignored_suffixes::IgnoredSuffixes;
-use crate::syntax_mapping::MappingTarget;
-use crate::{bat_warning, SyntaxMapping};
+use crate::syntax_mapping::{MappingTarget, SyntaxMapping};
 
 use lazy_theme_set::LazyThemeSet;
 
 use serialized_syntax_set::*;
+
+use crate::error::*;
 
 #[cfg(feature = "build-assets")]
 pub use crate::assets::build_assets::*;
@@ -86,7 +85,7 @@ impl HighlightingAssets {
     /// defaults read -globalDomain AppleInterfaceStyle
     /// ```
     /// To avoid the overhead of the check on macOS, simply specify a theme
-    /// explicitly via `--theme`, `BAT_THEME`, or `~/.config/bat`.
+    /// explicitly via `--theme`, `BAT_THEME`, or `~/.config/syntect-assets`.
     ///
     /// See <https://github.com/sharkdp/bat/issues/1746> and
     /// <https://github.com/sharkdp/bat/issues/1928> for more context.
@@ -208,13 +207,13 @@ impl HighlightingAssets {
         let syntax_match = mapping.get_syntax_for(path);
 
         if let Some(MappingTarget::MapToUnknown) = syntax_match {
-            return Err(Error::UndetectedSyntax(path.to_string_lossy().into()));
+            return Err(crate::error::Error::UndetectedSyntax(path.to_string_lossy().into()));
         }
 
         if let Some(MappingTarget::MapTo(syntax_name)) = syntax_match {
             return self
                 .find_syntax_by_name(syntax_name)?
-                .ok_or_else(|| Error::UnknownSyntax(syntax_name.to_owned()));
+                .ok_or_else(|| crate::error::Error::UnknownSyntax(syntax_name.to_owned()));
         }
 
         let file_name = path.file_name().unwrap_or_default();
@@ -226,12 +225,12 @@ impl HighlightingAssets {
             (Some(syntax), _) => Ok(syntax),
 
             (_, Some(MappingTarget::MapExtensionToUnknown)) => {
-                Err(Error::UndetectedSyntax(path.to_string_lossy().into()))
+                Err(crate::error::Error::UndetectedSyntax(path.to_string_lossy().into()))
             }
 
             _ => self
                 .get_syntax_for_file_extension(file_name, &mapping.ignored_suffixes)?
-                .ok_or_else(|| Error::UndetectedSyntax(path.to_string_lossy().into())),
+                .ok_or_else(|| crate::error::Error::UndetectedSyntax(path.to_string_lossy().into())),
         }
     }
 
@@ -241,11 +240,11 @@ impl HighlightingAssets {
             Some(theme) => theme,
             None => {
                 if theme == "ansi-light" || theme == "ansi-dark" {
-                    bat_warning!("Theme '{}' is deprecated, using 'ansi' instead.", theme);
+                    log::warn!("Theme '{}' is deprecated, using 'ansi' instead.", theme);
                     return self.get_theme("ansi");
                 }
                 if !theme.is_empty() {
-                    bat_warning!("Unknown theme '{}', using default.", theme)
+                    log::warn!("Unknown theme '{}', using default.", theme)
                 }
                 self.get_theme_set()
                     .get(self.fallback_theme.unwrap_or_else(Self::default_theme))
@@ -254,39 +253,6 @@ impl HighlightingAssets {
         }
     }
 
-    pub(crate) fn get_syntax(
-        &self,
-        language: Option<&str>,
-        input: &mut OpenedInput,
-        mapping: &SyntaxMapping,
-    ) -> Result<SyntaxReferenceInSet> {
-        if let Some(language) = language {
-            let syntax_set = self.get_syntax_set()?;
-            return syntax_set
-                .find_syntax_by_token(language)
-                .map(|syntax| SyntaxReferenceInSet { syntax, syntax_set })
-                .ok_or_else(|| Error::UnknownSyntax(language.to_owned()));
-        }
-
-        let path = input.path();
-        let path_syntax = if let Some(path) = path {
-            self.get_syntax_for_path(
-                PathAbs::new(path).map_or_else(|_| path.to_owned(), |p| p.as_path().to_path_buf()),
-                mapping,
-            )
-        } else {
-            Err(Error::UndetectedSyntax("[unknown]".into()))
-        };
-
-        match path_syntax {
-            // If a path wasn't provided, or if path based syntax detection
-            // above failed, we fall back to first-line syntax detection.
-            Err(Error::UndetectedSyntax(path)) => self
-                .get_first_line_syntax(&mut input.reader)?
-                .ok_or(Error::UndetectedSyntax(path)),
-            _ => path_syntax,
-        }
-    }
 
     pub(crate) fn find_syntax_by_name(
         &self,
@@ -338,16 +304,6 @@ impl HighlightingAssets {
         Ok(syntax)
     }
 
-    fn get_first_line_syntax(
-        &self,
-        reader: &mut InputReader,
-    ) -> Result<Option<SyntaxReferenceInSet>> {
-        let syntax_set = self.get_syntax_set()?;
-        Ok(String::from_utf8(reader.first_line.clone())
-            .ok()
-            .and_then(|l| syntax_set.find_syntax_by_first_line(&l))
-            .map(|syntax| SyntaxReferenceInSet { syntax, syntax_set }))
-    }
 }
 
 pub(crate) fn get_serialized_integrated_syntaxset() -> &'static [u8] {

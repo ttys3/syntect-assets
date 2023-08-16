@@ -56,9 +56,9 @@ impl LazyTheme {
 }
 
 impl TryFrom<LazyThemeSet> for ThemeSet {
-    type Error = Error;
+    type Error = crate::error::Error;
 
-    /// Since the user might want to add custom themes to bat, we need a way to
+    /// Since the user might want to add custom themes to syntect-assets, we need a way to
     /// convert from a `LazyThemeSet` to a regular [`ThemeSet`] so that more
     /// themes can be added. This function does that pretty straight-forward
     /// conversion.
@@ -75,7 +75,7 @@ impl TryFrom<LazyThemeSet> for ThemeSet {
 
 #[cfg(feature = "build-assets")]
 impl TryFrom<ThemeSet> for LazyThemeSet {
-    type Error = Error;
+    type Error = crate::error::Error;
 
     /// To collect themes, a [`ThemeSet`] is needed. Once all desired themes
     /// have been added, we need a way to convert that into [`LazyThemeSet`] so

@@ -1,4 +1,4 @@
-//! `bat` is a library to print syntax highlighted content.
+//! `syntect-assets` is a library to print syntax highlighted content.
 //!
 //! The main struct of this crate is `PrettyPrinter` which can be used to
 //! configure and run the syntax highlighting.
@@ -10,7 +10,7 @@
 //!
 //! "Hello world" example:
 //! ```
-//! use bat::PrettyPrinter;
+//! use syntect_assets::PrettyPrinter;
 //!
 //! PrettyPrinter::new()
 //!     .input_from_bytes(b"<span style=\"color: #ff00cc\">Hello world!</span>\n")
@@ -21,39 +21,12 @@
 
 #![deny(unsafe_code)]
 
-mod macros;
 
 pub mod assets;
 pub mod assets_metadata {
     pub use super::assets::assets_metadata::*;
 }
-pub mod config;
-pub mod controller;
-mod decorations;
-mod diff;
-pub mod error;
-pub mod input;
-mod less;
-pub mod line_range;
-pub(crate) mod nonprintable_notation;
-mod output;
-#[cfg(feature = "paging")]
-mod pager;
-#[cfg(feature = "paging")]
-pub(crate) mod paging;
-mod preprocessor;
-mod pretty_printer;
-pub(crate) mod printer;
-pub mod style;
+
 pub(crate) mod syntax_mapping;
-mod terminal;
-mod vscreen;
-pub(crate) mod wrapping;
+mod error;
 
-pub use nonprintable_notation::NonprintableNotation;
-pub use pretty_printer::{Input, PrettyPrinter, Syntax};
-pub use syntax_mapping::{MappingTarget, SyntaxMapping};
-pub use wrapping::WrappingMode;
-
-#[cfg(feature = "paging")]
-pub use paging::PagingMode;
