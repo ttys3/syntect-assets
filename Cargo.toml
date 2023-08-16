@@ -1,11 +1,11 @@
 [package]
 authors = ["David Peter <mail@david-peter.de>"]
 categories = ["command-line-utilities"]
-description = "A cat(1) clone with wings."
-homepage = "https://github.com/sharkdp/bat"
+description = "[syntect](https://github.com/trishume/syntect) syntax and theme assets from [bat](https://github.com/sharkdp/bat)."
+homepage = "https://github.com/ttys3/syntect-assets"
 license = "MIT OR Apache-2.0"
 name = "syntect-assets"
-repository = "https://github.com/sharkdp/bat"
+repository = "https://github.com/ttys3/syntect-assets"
 version = "0.23.0"
 exclude = ["assets/syntaxes/*", "assets/themes/*"]
 edition = '2021'
