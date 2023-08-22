@@ -354,7 +354,7 @@ dependencies = [
 
 [[package]]
 name = "syntect-assets"
-version = "0.23.5"
+version = "0.23.6"
 dependencies = [
  "bincode",
  "flate2",

@@ -6,7 +6,7 @@ homepage = "https://github.com/ttys3/syntect-assets"
 license = "MIT OR Apache-2.0"
 name = "syntect-assets"
 repository = "https://github.com/ttys3/syntect-assets"
-version = "0.23.5"
+version = "0.23.6"
 exclude = ["assets/syntaxes/*", "assets/themes/*"]
 edition = '2021'
 
