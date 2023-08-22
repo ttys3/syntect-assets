@@ -83,7 +83,6 @@ impl HighlightingAssets {
     /// See <https://github.com/sharkdp/bat/issues/1746> and
     /// <https://github.com/sharkdp/bat/issues/1928> for more context.
     pub fn default_theme() -> &'static str {
-        #[cfg(not(target_os = "macos"))]
         {
             Self::default_dark_theme()
         }
